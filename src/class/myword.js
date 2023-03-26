@@ -1,8 +1,11 @@
 
 class myword {
+    static  count = 1
     constructor(word, meaning) {
+        this.id = myword.count++
         this.word = word
         this.meaning = meaning
+        this.status = false 
         
        
     }

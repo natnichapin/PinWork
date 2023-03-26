@@ -1,38 +1,136 @@
 {
-    "Categoties": [
-      {"id":1,
-        "CategoryName":"verb",
-      "vocabs":[{ "word":"read","meaning":"อ่าน"},
-    
-      {"word":"write","meaning":"เขียน"},
-      {"word":"Learn","meaning":"เรียน"},
-      {"word":"Eat","meaning":"กิน"},
-      {"word":"Drink","meaning":"ดื่ม"},
-      {"word":"Teach","meaning": "สอน"},
-      {"word":"Watch","meaning":"ดู"},
-      {"word":"Like","meaning":"ชอบ "},
-      {"word":"See","meaning":"เห็น "},
-      {"word":"Need","meaning":"ต้องการ"}
-    ]
-      
+  "Categoties": [
+    {
+      "id": 1,
+      "CategoryName": "verb",
+      "vocabs": [
+        {
+          "id": 1,
+          "word": "read",
+          "meaning": "อ่าน",
+          "status": false
+        },
+        {
+          "id": 2,
+          "word": "write",
+          "meaning": "เขียน",
+          "status": false
+        },
+        {
+          "id": 3,
+          "word": "Learn",
+          "meaning": "เรียน",
+          "status": false
+        },
+        {
+          "id": 4,
+          "word": "Eat",
+          "meaning": "กิน",
+          "status": false
+        },
+        {
+          "id": 5,
+          "word": "Drink",
+          "meaning": "ดื่ม",
+          "status": false
+        },
+        {
+          "id": 6,
+          "word": "Teach",
+          "meaning": "สอน",
+          "status": false
+        },
+        {
+          "id": 7,
+          "word": "Watch",
+          "meaning": "ดู",
+          "status": false
+        },
+        {
+          "id": 8,
+          "word": "Like",
+          "meaning": "ชอบ ",
+          "status": false
+        },
+        {
+          "id": 9,
+          "word": "See",
+          "meaning": "เห็น ",
+          "status": false
+        },
+        {
+          "id": 10,
+          "word": "Need",
+          "meaning": "ต้องการ",
+          "status": false
+        }
+      ]
     },
-    {"id":2,
-      "CategoryName":"animal",
-    "vocabs":[
-      {"word":"alligator","meaning":"จระเข้"},
-       { "word":"ant","meaning":"มด"},  
-           {"word":"bat","meaning":"ค้างคาว"},  
-           {"word":"bear","meaning":"หมี"},  
-           {"word":"camel","meaning":"อูฐ"},  
-           {"word":"deer","meaning":"กวาง"},  
-           {"word":"dog","meaning":"สุนัข"},  
-           {"word":"donkey","meaning":"ลา"},  
-           {"word":"dragonfly","meaning":"แมลงปอ"},  
-           {"word":"duck","meaning":"เป็ด"}  
-         
-    ]
-  
+    {
+      "id": 2,
+      "CategoryName": "animal",
+      "vocabs": [
+        {
+          "id": 11,
+          "word": "alligator",
+          "meaning": "จระเข้",
+          "status": false
+        },
+        {
+          "id": 12,
+          "word": "ant",
+          "meaning": "มด",
+          "status": false
+        },
+        {
+          "id": 13,
+          "word": "bat",
+          "meaning": "ค้างคาว",
+          "status": false
+        },
+        {
+          "id": 14,
+          "word": "bear",
+          "meaning": "หมี",
+          "status": false
+        },
+        {
+          "id": 15,
+          "word": "camel",
+          "meaning": "อูฐ",
+          "status": false
+        },
+        {
+          "id": 16,
+          "word": "deer",
+          "meaning": "กวาง",
+          "status": false
+        },
+        {
+          "id": 17,
+          "word": "dog",
+          "meaning": "สุนัข",
+          "status": false
+        },
+        {
+          "id": 18,
+          "word": "donkey",
+          "meaning": "ลา",
+          "status": false
+        },
+        {
+          "id": 19,
+          "word": "dragonfly",
+          "meaning": "แมลงปอ",
+          "status": false
+        },
+        {
+          "id": 20,
+          "word": "duck",
+          "meaning": "เป็ด",
+          "status": false
+        }
+      ]
     }
-    ]
-  }
-  
+  ]
+}

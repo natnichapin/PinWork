@@ -1,19 +1,17 @@
 <script setup>
 import { getCategories } from '../composable/getCategories';
-import {ref,onMounted, watchEffect, computed} from 'vue'
+import {ref,onMounted} from 'vue'
 import {myword} from '../class/myword.js'
-import MaterialSymbolsEditDocumentOutline from '../components/icons/MaterialSymbolsEditDocumentOutline.vue'
-import IconParkSolidBigX from '../components/icons/IconParkSolidBigX.vue'
+import Card from '../components/Card.vue'
+import tabpagination from '../components/tabpagination.vue';
 import {pagination} from '../composable/pagination.js'
 import TableVocabInCategory from '../components/TableVocabInCategory.vue';
-import { locStub } from '@vue/compiler-core';
+
 // แยกคอมโพเนน ของหน้าที่เปลี่ยนได้
 onMounted(async ()=>{
   let categories = await getCategories()
-  console.log(await getCategories());
  let Vocabs = []
   categories.forEach((x)=>{
-    
       x.vocabs.forEach((y)=>{
         Vocabs.push(new myword(y.word,y.meaning))
       })
@@ -27,6 +25,7 @@ const CategoryAll = ref([])
 const TemporaryVocab=ref({word:'',meaning:''})
 const EditCategory = ref(false)
 const CategoryCard = ref([])
+let countPage = ref(1)
 let countId = 2
 //เช็คว่ากดของปุ่มไหน
 const checknumber=ref()
@@ -39,66 +38,40 @@ const addVocab = () => {
     if(TemporaryGroupVocabs.value.every(x=>x.word !== TemporaryVocab.value.word) && TemporaryVocab.value.word.length>0 && TemporaryVocab.value.meaning.length>0 ){
     
     let TemporaryVocabtest = TemporaryVocab.value.meaning.trim()
-    // if(TemporaryVocabtest.includes(" ")){
    
-    //     TemporaryVocabtest =[TemporaryVocabtest.replace(/\s/gi,",").split(",")]  
-    //     console.log(TemporaryVocabtest);
-    //     TemporaryVocabtest.forEach(x=> {
-    //       TemporaryGroupVocabs.value.push(new myword(TemporaryVocab.value.word,...TemporaryVocabtest ))
-    //     }
-    //     )
-       
-    // }
-    // else{
-      console.log(TemporaryVocabtest);
+       if(TemporaryVocabtest.includes(" ")){
+        TemporaryVocabtest =TemporaryVocabtest.replace(/\s/gi,",")
+       }
+  
       TemporaryGroupVocabs.value.push(new myword(TemporaryVocab.value.word,TemporaryVocabtest ))
       
-    // } 
+  
         TemporaryVocab.value={word:'',meaning:''}
     }
     else{
         alert('please enter Category name')
     }
-    console.log(TemporaryGroupVocabs.value);
 }
 // กด ปุ่ม close ตอน add vocab
 const clear = () =>{
     TemporaryVocab.value={word:'',meaning:''}
 }
 const deleteVocab = (event) =>{
-    console.log(event.target.id);
-    console.log("Hello");
-    console.log(TemporaryGroupVocabs.value);
+  
     TemporaryGroupVocabs.value = TemporaryGroupVocabs.value.filter((Vocab)=>Vocab.word!==event.target.id)
 }
-let countPage = ref(1)
+
 let TempObjTarget ={} //category ทั้งหมด
-const showPagination =(direction)=>{
- 
-  console.log('page num  wad:' + Math.ceil(TempObjTarget.vocabs.length/4));
-  if(direction === 'right'){
-    if(countPage.value < Math.ceil(TempObjTarget.vocabs.length/4)){
-      countPage.value++
-    }
-   
+const returnPage = (page) =>{
+  TemporaryShow.value['vocabs'] =pagination(TempObjTarget.vocabs,page)
+  countPage.value = page
   }
-  else{
-    if(countPage.value >1){
-      countPage.value --
-    }
-  }
-  
-  console.log(countPage.value);
-  //เอา Temporary vocab ไปไวใน pagination แล้วส่งกลับมา
-  //ทำไม่ได้เพราะ Props ถูกส่งมาครั้งเดียว
-  TemporaryShow.value['vocabs']= pagination(TempObjTarget.vocabs,countPage.value)
-}
+
 const showCategory =(id)=>{
   
-  console.log(id);
+  //หาตามไอดีที่กด
   TempObjTarget  = CategoryAll.value.find(x=>x.id == id)
-  console.log(TempObjTarget.CategoryName);
-  console.log(TempObjTarget.vocabs);
+  console.log(TempObjTarget);
   TemporaryShow.value['categoryName'] = TempObjTarget.CategoryName
  TemporaryShow.value['vocabs'] = pagination(TempObjTarget.vocabs)
  
@@ -108,17 +81,10 @@ const TemporaryShow = ref({})
 //category 
 //กดดูภายใน category
 const  changPage=(event,value,i)=>{
-  console.log(value);
-  console.log(event.target.id);
      if(value==='show'){
       showCategory(event.target.id)
      }
-     console.log(page.value['show']);
-      console.log(page.value['add']);
-      // if(i===checknumber){
-      //   page.value['add']=!page.value['add']
-      // }
-      console.log(i)
+   
       if (typeof i === "number") {
         page.value['show']=true
         page.value['add']=false
@@ -128,10 +94,7 @@ const  changPage=(event,value,i)=>{
         page.value['add']=true
         page.value['show']=false
       }
-      // page.value['show']=!page.value['show']
-      // page.value['add']=!page.value['add']
-      console.log(page.value['show']);
-      console.log(page.value['add']);
+
       checknumber.value=i
 }
 const deleteCategory =async (event)=>{
@@ -171,7 +134,7 @@ const AddCategory =async (event)=>{
       CategoryAll.value.push({id:countId,CategoryName:TemporaryName.value,vocabs:TemporaryGroupVocabs.value})
       TemporaryGroupVocabs.value=[]
       TemporaryName.value =[]
-      console.log(CategoryAll.value);
+
     } else throw new error("Error, cannot delete data!");
   } catch (error) {
     console.log(error);
@@ -185,10 +148,7 @@ const AddCategory =async (event)=>{
   //edit
 
 const modifyVocabInCategory =async(EditObj)=>{
-  console.log(EditObj);
-  console.log(EditObj.id);
-console.log(EditObj.CategoryName);
-console.log(EditObj.vocabs);
+
 EditObj.vocabs.forEach(x=> console.log(x))
 
 try {
@@ -208,7 +168,6 @@ try {
         if (res.status === 200) {
             // console.log('edit successfully')           
              const modifyCategory = await res.json() //หลังอัพเดทจะคืนค่า ผลลัพธ์มา
-            console.log(modifyCategory)
             //หา obj ที่ถูกแก้ จาก beck-end แล้วเปลี่ยนค่าของ ที่มีฝั่ง front
             CategoryAll.value = CategoryAll.value.map((Category) => {
                 if (Category.id === EditObj.id) {
@@ -233,17 +192,10 @@ try {
         console.log(error)
     }
 }
-const deleteVocabfunction =(event)=>{
-  console.log(event.target.id);
-  console.log(TempObjTarget);
-  console.log(TempObjTarget.vocabs.filter(x=>x.id != event.target.id));
-  TempObjTarget.vocabs =TempObjTarget.vocabs.filter(x=>x.id != event.target.id)
-  console.log(TempObjTarget);
 
-}
 //function ที่พีเพิ่มมา
 
-const deleteStatus =ref(false)
+
 </script>
  
 <template>
@@ -252,22 +204,16 @@ const deleteStatus =ref(false)
     <div class=" w-full h-full  flex ">
     <div class="w-3/12 h-5/6 space-y-5  flex flex-col overflow-auto  pt-4  mx-auto  mt-10 border-4 rounded-lg border-amber-700 bg-amber-200 relative ">
         <div class="flex flex-col " v-for="(Category,index) in CategoryAll" :key="Category.id">
-            <div class="card w-4/5 bg-amber-900 m-auto text-primary-content "  :class="EditCategory&&checknumber===index?'bg-black/70':'bg-amber-900'">
-              
-     <div class="card-body">
-        <h2 class="card-title">{{ Category.CategoryName }}</h2>
-        
-    <div class="card-actions justify-end ">
-      <button :id=Category.id  ref="CategoryCard"  class="btn border-0 bg-amber-400 text-black" @click="(event)=>{changPage(event,'show',index)}" v-show="!EditCategory" :disabled="page.show&&index===checknumber">View</button>
-      <button :id=Category.id ref="CategoryCard" class="btn border-0 bg-amber-400 text-black" @click="EditCategoryfunc(index)" v-show="!EditCategory">Delete</button>
-      <div class="card-actions justify-end " v-show="checknumber===index">
-        <button :id=Category.id ref="CategoryCard"  class="btn border-0 bg-amber-400 text-black" @click="EditCategoryfunc" v-show="EditCategory">Cancel</button>
-        <button :id=Category.id ref="CategoryCard"  class="btn border-0 bg-amber-400 text-black" @click="deleteCategory" v-show="EditCategory">Confrim</button>
-      </div>
-    </div>
-  </div>
-
-        </div>
+        <Card 
+        :PageObject="page"
+        :Category = "Category"
+        :index = "index"
+        :EditCategory="EditCategory"
+        :checknumber="checknumber"
+        @changPage="changPage"
+        @EditCategoryfunc="EditCategoryfunc"
+        @deleteCategory="deleteCategory"
+        />
       
         </div>
     </div>
@@ -352,7 +298,7 @@ const deleteStatus =ref(false)
             BACK TO ADD PAGE
             </button>
 
-            <button @click="()=>{deleteStatus=!deleteStatus}"
+            <button 
             class="w-fit  bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 mx-5 hover:border-blue-500 rounded"
             >
             Delete Vocab
@@ -362,13 +308,9 @@ const deleteStatus =ref(false)
             
           <div class="bg-amber-100 w-3/5 h-14 mx-auto text-5xl font-LilitaOne  text-zinc-900 rounded-2xl text-center "> {{ TemporaryShow.categoryName }}</div>
                   <div class="w-full  h-4/6 overflow-auto ">
-          <TableVocabInCategory :TemporaryVocabShow="TemporaryShow" :countPages="countPage" :ObjectCategoryClicked="TempObjTarget" @editvocab="modifyVocabInCategory" :deleteStatus="deleteStatus" @deletevocab="deleteVocabfunction" />
+          <TableVocabInCategory :TemporaryVocabShow="TemporaryShow" :countPages="countPage" :ObjectCategoryClicked="TempObjTarget" @editvocab="modifyVocabInCategory" />
         </div>
-        <div class="btn-group mx-auto">
-  <button class="btn" @click="showPagination('left')">«</button>
-  <button class="btn">{{ countPage }}</button>
-  <button class="btn" @click="showPagination('right')">»</button>
-</div>
+        <tabpagination :countPage="countPage" :TempObjTargetLength="TempObjTarget"  @returnPage="returnPage" />
         </div>
     </div>
 </div>

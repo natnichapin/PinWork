@@ -23,23 +23,17 @@ const props = defineProps({
     
     ObjectCategoryClicked: {
       type: Object
-    },
-    deleteStatus : {
-      type : Boolean
     }
     
 }) 
-onMounted(()=>{
-  console.log(props.countPages);
-  console.log(props.ObjectCategoryClicked);
-})
+
 
 onUpdated(()=>{
-
+  EditObjectShowPage.value = props.TemporaryVocabShow
   if(props.ObjectCategoryClicked.CategoryName!== previousNameCategory){
     console.log(props.countPages);
  
-    EditObjectShowPage.value = props.TemporaryVocabShow
+    
     console.log(typeof(props.TemporaryVocabShow));
     console.log(props.TemporaryVocabShow);
     console.log(props.ObjectCategoryClicked);
@@ -81,13 +75,19 @@ console.log(EditObjectShowPage.value);
                   }
                          
                         })
-
-              
   
   editObjVocab.status =   ! editObjVocab.status
   
   
   emits('editvocab',EditAllObject)
+}
+
+
+const DeleteVocabfunction = (event) =>
+{ 
+  console.log(typeof(event.target.id));
+  console.log(event.target.id);
+  EditAllObject.vocabs  = EditAllObject.vocabs.filter(x=>x.id != event.target.id)
 }
 
 
@@ -122,7 +122,7 @@ console.log(EditObjectShowPage.value);
                      <MaterialSymbolsEditDocumentOutline :id=vocab.id v-if="!vocab.status" class="w-12 h-12 text-white hover:drop-shadow-lg hover:text-stone-500" @click="EditVocabfunction" />
                      <FluentEmojiHighContrastCheckMarkButton   :id=vocab.id v-if="vocab.status"  class="w-12 h-12 text-white hover:text-stone-500" @click="confrimfunction" />
                      <!-- <button class="btn btn-error" :id=vocab.id  @click="$emit('deletevocab',$event)">Delete</button> -->
-                     <span v-if="props.deleteStatus" :id=vocab.id  @click="$emit('deletevocab',$event)"  class="text-3xl text-red-500 font-bold hover:text-amber-400">X</span>
+                     <span v-if="vocab.status" :id=vocab.id @click="DeleteVocabfunction"   class="text-3xl text-red-500 font-bold hover:text-amber-400" >X</span>
                 </td>
               
                 </tr>

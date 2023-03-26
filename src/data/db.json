@@ -5,6 +5,30 @@
       "CategoryName": "verb",
       "vocabs": [
         {
+          "id": 1,
+          "word": "read",
+          "meaning": "อ่าน",
+          "status": false
+        },
+        {
+          "id": 2,
+          "word": "write",
+          "meaning": "เขียน",
+          "status": false
+        },
+        {
+          "id": 3,
+          "word": "Learn",
+          "meaning": "เรียน",
+          "status": false
+        },
+        {
+          "id": 4,
+          "word": "Eat",
+          "meaning": "กิน",
+          "status": false
+        },
+        {
           "id": 5,
           "word": "Drink",
           "meaning": "ดื่ม",
@@ -31,7 +55,7 @@
         {
           "id": 9,
           "word": "See",
-          "meaning": "เห็น wdadwa",
+          "meaning": "เห็น ",
           "status": false
         },
         {
@@ -49,25 +73,25 @@
         {
           "id": 11,
           "word": "alligator",
-          "meaning": "จระเข้dwa",
+          "meaning": "จระเข้",
           "status": false
         },
         {
           "id": 12,
-          "word": "antwa",
-          "meaning": "มดdwawdwaa",
+          "word": "ant",
+          "meaning": "มด",
           "status": false
         },
         {
           "id": 13,
-          "word": "batHello",
+          "word": "bat",
           "meaning": "ค้างคาว",
           "status": false
         },
         {
           "id": 14,
           "word": "bear",
-          "meaning": "หมีwa",
+          "meaning": "หมี",
           "status": false
         },
         {
@@ -97,13 +121,13 @@
         {
           "id": 19,
           "word": "dragonfly",
-          "meaning": "แมลงปอwawadwasww",
+          "meaning": "แมลงปอ",
           "status": false
         },
         {
           "id": 20,
           "word": "duck",
-          "meaning": "เป็ดdwdwadwa",
+          "meaning": "เป็ด",
           "status": false
         }
       ]

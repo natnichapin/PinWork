@@ -245,7 +245,7 @@ try {
       <tr>
         <th>No.</th>
         <th>Vocabs</th>
-        <th colspan="3" >Meaning</th>
+        <th colspan="3" >Hint</th>
         <th>Edit</th>
       
       </tr>

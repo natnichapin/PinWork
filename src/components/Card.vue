@@ -9,7 +9,7 @@ const props = defineProps({
         type:Object
     },
     index:{
-        type:Number
+        type:Number,
     },
     EditCategory:{
         type:Boolean

@@ -108,7 +108,7 @@ const DeleteVocabfunction = (event) =>
               <tr>
                 <th>No.</th>
                 <th>Vocabs</th>
-                <th colspan="1/3" >Meaning</th>
+                <th colspan="1/3" >Hint</th>
                 <th  class="text-center">Edit</th>
               
               </tr>

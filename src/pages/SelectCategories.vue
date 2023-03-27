@@ -28,9 +28,12 @@ const CategoryCard = ref([])
 let countPage = ref(1)
 let countId = 2
 //เช็คว่ากดของปุ่มไหน
-const checknumber=ref()
-const EditCategoryfunc= (i) =>{
+let checknumber=ref()
+const EditCategoryfunc= (i=NaN) =>{
     checknumber.value=i
+    if(isNaN(checknumber.value)){
+      checknumber.value=NaN
+    }
     EditCategory.value=!EditCategory.value
 }
 const addVocab = () => {
@@ -63,6 +66,7 @@ const deleteVocab = (event) =>{
 
 let TempObjTarget ={} //category ทั้งหมด
 const returnPage = (page) =>{
+  console.log(TempObjTarget)
   TemporaryShow.value['vocabs'] =pagination(TempObjTarget.vocabs,page)
   countPage.value = page
   }
@@ -166,6 +170,7 @@ try {
             }
         )
         if (res.status === 200) {
+          TemporaryShow.value['vocabs'] = pagination(TempObjTarget.vocabs)
             // console.log('edit successfully')           
              const modifyCategory = await res.json() //หลังอัพเดทจะคืนค่า ผลลัพธ์มา
             //หา obj ที่ถูกแก้ จาก beck-end แล้วเปลี่ยนค่าของ ที่มีฝั่ง front
@@ -192,8 +197,6 @@ try {
         console.log(error)
     }
 }
-
-//function ที่พีเพิ่มมา
 
 
 </script>
@@ -296,12 +299,6 @@ try {
             class="w-fit  bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 mx-5 hover:border-blue-500 rounded"
             >
             BACK TO ADD PAGE
-            </button>
-
-            <button 
-            class="w-fit  bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 mx-5 hover:border-blue-500 rounded"
-            >
-            Delete Vocab
             </button>
           </div>
          
